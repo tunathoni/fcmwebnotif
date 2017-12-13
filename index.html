@@ -1,0 +1,67 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCBIAfLSw3AwLpHHx2hAlLpN-mSUvwTKcQ",
+    authDomain: "ezlservicethoni.firebaseapp.com",
+    databaseURL: "https://ezlservicethoni.firebaseio.com",
+    projectId: "ezlservicethoni",
+    storageBucket: "ezlservicethoni.appspot.com",
+    messagingSenderId: "486201751995"
+  };
+  firebase.initializeApp(config);
+
+  const messaging = firebase.messaging();
+  messaging.requestPermission()
+  .then(function(){
+  	console.log('I am in here');
+    
+    messaging.getToken()
+  .then(function(currentToken) {
+    $('#senderid').html(config.messagingSenderId);
+    $('#tokenid').html(currentToken);
+    console.log('haslo',currentToken);
+  })
+  .catch(function(err) {
+    console.log('An error occurred while retrieving token. ', err);
+    showToken('Error retrieving Instance ID token. ', err);
+    setTokenSentToServer(false);
+  });
+
+  }).catch(function(err){
+    console.log('Error');
+  });
+
+  
+
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>Document</title>
+</head>
+<body>
+  <table border="0">
+    <tr>
+      <td width="80px;">Sender ID</td>
+      <td>:</td>
+      <td><label for="" id="senderid"></label></td>
+    </tr>
+    <tr>
+      <td width="80px;">Token ID</td>
+      <td>:</td>
+      <td><label for="" id="tokenid"></label></td>
+    </tr>
+  </table>
+</body>
+</html>
+<script>
+  
+</script>
